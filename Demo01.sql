@@ -74,10 +74,16 @@
 */
 /* show create database mysql;  -- 在这里 名为mysql数据库，字符集为gbk */
 
-/* create database [if not exists-可选的] <dbName-你指定的数据库名称> [character set <charSet-你指定的字符集,如gbk,utf8> ]
- [可选的条件1: 当不存在此数据库名dbName时,]   
- [可选的条件2: 以你指定的字符集charSet进行创建 (如gbk或 utf8, 注意这里没有短杠-嗷!) ]
+/* create database [if not exists-可选的前置条件] 
+   <dbName-你指定的数据库名称> 
+   [character set <charSet-你指定的字符集,如gbk,utf8> 可选的后置条件]
+
+ [可选的 前置条件: 当不存在此数据库名dbName时,]   
+ [可选的 追加条件: 以你指定的字符集charSet进行创建 (如gbk或 utf8, 注意这里没有短杠-嗷!) ]
  创建指定名称dbName的数据库
+
+ 注: SQL会忽略空格和行尾的换行符号，SELECT 语句可以用一行或者多行来表达
+
 
  exist  /ɪɡˈzɪst/ 存在
 
@@ -90,4 +96,6 @@
 */
 /* drop database db1; */
 
+/* create database if not exists db1 character set utf8;  -- 以完整的create语句,创建编码为utf8的数据库db1 */
+/* show create database db1;  -- utf8的编码格式 */
 
