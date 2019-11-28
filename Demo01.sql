@@ -6,7 +6,7 @@
     * 单行注释 
       (1) --(第2道短杠后至少跟一个空格符, 例如空格、tab、换行符等等) 注释内容 
       (2) #(井号后可以不带空格, #后面直接跟的就是注释) 注释内容
-    * 多行注释  /* 注释内容  
+    * 多行注释  杠/星号* 注释内容 星号*杠/
 */
 
 
@@ -65,7 +65,9 @@
 */
 
 
-/* 查看所有数据库的名称 */
+/* 查看所有数据库的名称
+
+*/
 -- show databases;  -- 单行注释，查看所有数据库的名称
 
 /* show create database <某个数据库名称>
@@ -96,6 +98,25 @@
 */
 /* drop database db1; */
 
-/* create database if not exists db1 character set utf8;  -- 以完整的create语句,创建编码为utf8的数据库db1 */
+-- create database if not exists db1 character set utf8;  -- 以完整的create语句,创建编码为utf8的数据库db1 */
 /* show create database db1;  -- utf8的编码格式 */
 
+/* alter database 数据库名 character set 字符集名称
+ 修改数据库的编码格式(字符集)
+*/
+-- alter database db1 character set utf8;
+-- show create database db1;
+
+/* drop database 数据库名 [if exists]
+ 当此数据库存在时，删除数据库  
+*/
+-- drop database db1;
+
+/* select database(空参); 要带上括号！！
+ 查询当前正在使用的数据库
+
+ use 数据库名db
+ 更改为 使用名为db的数据库
+*/
+use db1;
+select database();
