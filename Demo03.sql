@@ -13,7 +13,7 @@ use db1;
   
 */
 -- insert into stu( sno, sname, sex )
---     values( "A01","小明嗷","男" );
+--     values( "A04","小明aa","男" );
 
 -- select * from stu;
 
@@ -37,3 +37,29 @@ use db1;
 -- delete from stu
 --     where sno="A01";
 
+/* 修改表中数据
+ update 表名
+    set 
+        列名1 = 值1,
+        列名2 = 值2,
+        列名3 = 值2,
+        ...,
+        列名n = 值n        -- 注意，set后面中 不能用小括号包住 【为列名赋新的值语句】！！
+                           -- set后不要加小括号！！
+    [ where 条件-可选的 ]
+ 
+ 注：若不指定where条件，则默认 为所有行(记录) 都执行相同的 更新指定列的操作
+ 如：所有行的sex值都是一样的；所有行的sname值都是一样的
+*/
+-- update stu
+--     set 
+--         sname = "set后面不要加小括号括住这些赋值语句嗷！",  
+--         sex = "set后面不要加小括号！！"
+    
+--     where( sno="A02" );
+
+-- update stu
+--     set
+--         sname = "不指定where条件时，所有行hang 都执行xing 更新指定列的操作嗷！",
+--         sex = "如：所有行的sex值都是一样的；所有行的sname值都是一样的";
+-- 如：所有行的sex值都是一样的；所有行的sname值都是一样的
