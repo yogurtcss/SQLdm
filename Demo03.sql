@@ -1,7 +1,7 @@
 -- DML 增删改表中数据 
 use db1;
 
-/* 添加数据
+/* 【逐行地】指定列属性，添加 一行 数据，
  insert into [<表名>-可省略的] (列名1，列名2，...，列名n)
     values(值1，值，...，值n)；
  
@@ -63,3 +63,9 @@ use db1;
 --         sname = "不指定where条件时，所有行hang 都执行xing 更新指定列的操作嗷！",
 --         sex = "如：所有行的sex值都是一样的；所有行的sname值都是一样的";
 -- 如：所有行的sex值都是一样的；所有行的sname值都是一样的
+
+/* alter table stu add math int;
+alter table stu add PE int; */
+/* update stu
+set math=50, PE=60
+-- 省略了where条件，默认为所有行做修改 */
