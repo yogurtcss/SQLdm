@@ -119,4 +119,29 @@
  更改为 使用名为db的数据库
 */
 use db1;
-select database();
+select * from stu;
+
+/* jdbc java rollback 无效：
+ 数据库的总引擎虽是修改为INNODB了，
+ 但之前已建好的表还不是INNODB引擎！
+ 所以，现在要修改 之前已建好的stu、stu2表的引擎为 INNODB
+ 
+ 此语句只执行一次，可能未及时生效，
+ 得多执行几次才见到  ENGINE=InnoDB DEFAULT 的效果……
+*/
+-- alter table stu engine=INNODB；
+-- alter table stu2 engine=INNODB；
+
+
+/* 查看某数据库中，已建表用的引擎
+ show table status from 数据库名 where name="表名"
+*/
+-- show table status from db1 where name="stu"；
+-- show create table stu；
+
+
+-- show engines;
+
+-- 我重置一下这两个数字
+-- update stu set math=50 where sno="A03";
+-- update stu set math=60 where sno="A04";
