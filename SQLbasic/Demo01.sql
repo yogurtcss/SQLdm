@@ -143,5 +143,8 @@ select * from stu;
 -- show engines;
 
 -- 我重置一下这两个数字
--- update stu set math=50 where sno="A03";
+
 -- update stu set math=60 where sno="A04";
+-- delete from stu where sno="A02";
+-- insert into stu( sno,sname,sex,math,PE ) values("A02","默认嗷！","男",12,10);
+-- select count(*) from stu;

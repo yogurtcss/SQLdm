@@ -96,11 +96,13 @@ use db1;
 
 
 /* 聚合函数：将一列数据作为一个整体，进行纵向的计算
- count 计算个数
- max
- min
- sum
- avg 计算平均值
+ 1.count(column_name) 返回指定列的值的数目（NULL不计入）
+  -select count(*) from 表名; 返回表中的总记录数(总行数)
+ 
+ 2.max
+ 3.min
+ 4.sum
+ 5.avg 计算平均值
 
 */
 
