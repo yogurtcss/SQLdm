@@ -7,7 +7,7 @@ use db50;
 
 
 
-select * from Student;
+/* select * from Student; */
 
 
 
