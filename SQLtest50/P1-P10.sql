@@ -76,17 +76,18 @@ select * from SC where cid="02"; */
 
 
 
--- 查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩
+-- 2. 查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩
+-- 分步写的过程，先查一下这个，不要一上来就写子查询！！
 -- select sid, avg(score)
 -- from SC
 -- group by sid;
 
 -- 正解：一般的连接，通过 中间结果biao01.sid=biao02.sid进行连接
-select biao01.sid, biao02.sname, biao01.rst
-from
-    (select sid,avg(score) as rst  from SC group by sid) as biao01, -- 以sid分组，计算平均分
-    (select sid,sname from Student) as biao02
-where rst>60 and biao01.sid=biao02.sid;
+-- select biao01.sid, biao02.sname, biao01.rst
+-- from
+--     (select sid,avg(score) as rst  from SC group by sid) as biao01, -- 以sid分组，计算平均分
+--     (select sid,sname from Student) as biao02
+-- where rst>=60 and biao01.sid=biao02.sid;
 
 
 -- select biao02.sid, biao02.sname, rst
@@ -101,6 +102,20 @@ where rst>60 and biao01.sid=biao02.sid;
 -- 不该用左外连接！！
 
 
+-- 3. 查询在 SC 表存在成绩的学生信息
 
+-- select * from student; -- 没有成绩的学生：09至13号
+-- select * from SC;
 
+-- 选出所有学号+姓名
+-- select sid, sname from Student; 
+-- 选出所有 不重复的学号，已知SC表中的学号，都是有成绩的，不在SC表中都是没成绩的
+-- select distinct(sid) from SC; 
 
+-- select biao01.sid, biao01.sname, biao01.sage, biao01.ssex
+-- from
+--     (select * from Student) as biao01,
+--     (select distinct(sid) from SC) as biao02
+-- where biao01.sid=biao02.sid
+
+-- 从这第3题开始，渐入佳境了
