@@ -68,8 +68,39 @@ from
 /* select * from SC where cid="01";
 select * from SC where cid="02"; */
 
-select SC.sid
-from SC
-where 
-    cid="02" and
-    SC.sid not in (select SC.sid from SC where cid="01")
+-- select SC.sid
+-- from SC
+-- where 
+--     cid="02" and
+--     SC.sid not in (select SC.sid from SC where cid="01")
+
+
+
+-- 查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩
+-- select sid, avg(score)
+-- from SC
+-- group by sid;
+
+-- 正解：一般的连接，通过 中间结果biao01.sid=biao02.sid进行连接
+select biao01.sid, biao02.sname, biao01.rst
+from
+    (select sid,avg(score) as rst  from SC group by sid) as biao01, -- 以sid分组，计算平均分
+    (select sid,sname from Student) as biao02
+where rst>60 and biao01.sid=biao02.sid;
+
+
+-- select biao02.sid, biao02.sname, rst
+-- from
+--     -- 以sid分组，计算平均分
+--     (select sid,avg(score) as rst  from SC group by sid) as biao01
+--     left join
+--         (select sid,sname from Student) as biao02
+--     on 
+--         biao01.sid=biao02.sid and
+--         rst>60
+-- 不该用左外连接！！
+
+
+
+
+
