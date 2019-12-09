@@ -119,3 +119,15 @@ select * from SC where cid="02"; */
 -- where biao01.sid=biao02.sid
 
 -- 从这第3题开始，渐入佳境了
+
+
+-- 4. 查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩 (没成绩的显示为 null)
+
+-- 某同学的选课总数
+/* select count(cid)
+from SC
+where sid="01"; */
+
+select sum(score)
+from SC
+where sid="01";
