@@ -153,4 +153,11 @@ from
 */
 
 -- 4.1 查有成绩的学生信息
+/* select distinct(SC.sid) from SC */
 
+select biao02.*
+from
+    (select distinct(SC.sid) from SC) as biao01,
+    (select * from Student) as biao02
+where
+    biao01.sid=biao02.sid
