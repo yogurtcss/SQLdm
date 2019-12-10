@@ -126,8 +126,31 @@ select * from SC where cid="02"; */
 -- 某同学的选课总数
 /* select count(cid)
 from SC
-where sid="01"; */
+where sid="13";
 
 select sum(score)
 from SC
-where sid="01";
+where sid="13";
+
+select Student.sid, Student.sname
+from Student; */
+
+/* select biao01.sid, biao01.sname, biao02.rstCount, biao03.rstSum
+from
+    (select Student.sid, Student.sname from Student) as biao01
+    left join
+        (select count(cid) as rstCount, SC.sid from SC  group by sid) as biao02
+    on biao01.sid=biao02.sid
+    left join
+        (select sum(score) as rstSum, SC.sid from SC group by sid) as biao03
+    on biao02.sid=biao03.sid  -- on的条件是传递地写：上一个左外连接的on条件与下一个左外连接的公共部分
+    -- 在这里，公共部分是 biao02.sid */
+
+/* 多个表进行左外连接时：串联写法，
+ 1.一个左外连接紧跟着一个on；
+ 2.on的条件是传递地写：一个左外连接的on条件与下一个左外连接的公共部分
+   在这里，公共部分是 biao02.sid
+*/
+
+-- 4.1 查有成绩的学生信息
+
