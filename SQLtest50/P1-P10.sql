@@ -155,9 +155,22 @@ from
 -- 4.1 查有成绩的学生信息
 /* select distinct(SC.sid) from SC */
 
-select biao02.*
+/* select biao02.*
 from
     (select distinct(SC.sid) from SC) as biao01,
     (select * from Student) as biao02
 where
-    biao01.sid=biao02.sid
+    biao01.sid=biao02.sid */
+
+
+-- 5. 查询「李」姓老师的数量
+-- 忘记了 模糊查询，不是用等号啦！ Teacher.tname = "李_"; 
+/* select count(*)  -- count(*)或count(tid)都是可以的
+from Teacher
+where
+    Teacher.tname like "李_";  -- 单下划线_ 表示单个任意字符 */
+
+/* select count(tid)
+from Teacher
+where
+    tname like "李%"; */

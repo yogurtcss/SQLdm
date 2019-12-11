@@ -15,7 +15,7 @@ select * from Student;
 
 
 
-/* select * from Teacher; */
+select * from Teacher;
 
 
 
