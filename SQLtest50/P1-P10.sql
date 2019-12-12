@@ -189,13 +189,15 @@ where
 -- from SC
 -- where cid="02";
 
-select biao04.*
-from
-    (select tid from Teacher where tname="张三") as biao01,
-    (select cid, Course.tid   from Course ) as biao02,
-    (select sid, SC.cid       from SC) as biao03,
-    (select * from Student) as biao04
-where
-    biao01.tid=biao02.tid and
-    biao02.cid=biao03.cid and
-    biao04.sid=biao03.sid
+-- select biao04.*
+-- from
+--     (select tid from Teacher  where tname="张三") as biao01,
+--     (select cid, Course.tid   from Course ) as biao02,
+--     (select sid, SC.cid       from SC) as biao03,
+--     (select * from Student) as biao04
+-- where
+--     -- 没啥大问题。特别要注意where中的条件(属性)，是否在上面的select...from中选取出来了？需留意
+--     biao01.tid=biao02.tid and   
+--     biao02.cid=biao03.cid and
+--     biao04.sid=biao03.sid
+
