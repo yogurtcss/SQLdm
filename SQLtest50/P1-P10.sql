@@ -174,3 +174,28 @@ where
 from Teacher
 where
     tname like "李%"; */
+
+
+-- 6. 查询学过「张三」老师授课的同学的信息
+-- select tid
+-- from Teacher
+-- where tname="张三";  -- 输出tid=01
+
+-- selct cid
+-- from Course
+-- where tid="01";  -- 输出cid=02；cname为数学
+
+-- select sid
+-- from SC
+-- where cid="02";
+
+select biao04.*
+from
+    (select tid from Teacher where tname="张三") as biao01,
+    (select cid, Course.tid   from Course ) as biao02,
+    (select sid, SC.cid       from SC) as biao03,
+    (select * from Student) as biao04
+where
+    biao01.tid=biao02.tid and
+    biao02.cid=biao03.cid and
+    biao04.sid=biao03.sid

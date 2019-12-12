@@ -11,7 +11,7 @@ select * from Student;
 
 
 
-/* select * from Course; */
+select * from Course;
 
 
 
