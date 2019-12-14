@@ -244,7 +244,7 @@ from Course;  -- 取出所有的cid：01、02、03 */
 --     biao01.cid="02" or
 --     biao01.cid="03"
 
-select *
+/* select *
 from
     (select distinct(biao01.sid) 
     from (select sid,cid from SC where sid<>"01") as biao01
@@ -254,10 +254,93 @@ from
     -- biao03 选出所有同学的学号
     (select * from Student) as biao03
 where
-    biao02.sid=biao03.sid  -- 然后 biao02与biao03通过学号相等来连接
+    biao02.sid=biao03.sid;  -- 然后 biao02与biao03通过学号相等来连接
+ */
 
 
-
-/* 2019-12-14 09:40:00
+/* 2019-12-14 12:20:17
 9. 查询和 "01" 号同学——学习的课程 完全相同的其他同学的信息
 */
+
+-- 查看 01同学上了啥课
+/* select cid
+from SC
+where sid="01"; */
+
+-- 01同学的上课数量
+/* select count(cid) as rst from SC where sid="01"; */
+
+
+-- 查看 除去01同学的其他同学 上了啥课
+/* select sid,cid
+from SC
+where sid<>"01" */
+
+
+-- 01同学的 选课数量 
+/* select count(cid) as rst3 from SC where sid="01" */
+
+/* 
+ 已知：01同学选了 01课02课与03课
+ 构造一张“理想的表”——名为biao_ideal，(如何构造？通过 多表查询 做 笛卡尔积)
+ 此表中，假设除01外的都是所有同学都选了3门课：01课02课与03课
+ 然后让 理想表biao_ideal(左，作为主表) 与 真实选课表(右) 左连接；
+    ▲ 注意选取出来的列要起“别名”，否则原列名被null占据，而阻碍下一步查询！！
+ 这样 在理想表中就会出现null的行，就能找出哪些人和01同学不一样了！
+*/
+
+
+
+-- “理想表” 与 真实选课表 进行左外连接
+
+/* 搞清楚谁是主表，哪个表该出现null值？ 主表出现null值
+
+ 左外连接（left join /left outer join）: 
+ 满足 on 条件表达式，左外连接是以左表为准，返回左表所有的数据；
+ 右表中将出现null：仅显示右表中符合条件的行，右表中不合条件的行将显示null
+ 通常，我们需要【手动地】把右表的所有属性(.*) 选取 显示出来，找到那些显示null的特殊行，等待下一步的查询
+
+ 右外连接（right join /right outer join）：
+ 满足 on 条件表达式，右外连接是以右表为准，返回右表所有的数据，
+ 左表中将出现null：仅显示左表中符合条件的行，左表中不合条件的行将显示null
+ 通常，我们需要【手动地】把左表的所有属性(.*) 选取 显示出来，找到那些显示null的特殊行，等待下一步的查询
+
+ 
+*/
+
+-- 构造“理想表” biao_ideal
+-- select *
+-- from
+--     (select distinct(sid) from SC where sid<>"01") as biao01,
+--     (select cid from SC where sid="01") as biao02;
+
+select *
+from Student
+where Student.sid not in(
+    -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
+    -- 左表中 biao_ideal.sid 不出现空字段
+    select biao_ideal.sid 
+    from
+        (select *
+        from
+            -- 最后的结果是要从Student表中选出最终结果，所以biao01还是要从 Student表中选取，然后搞笛卡尔积！
+            (select sid from Student where sid<>"01") as biao01,
+            (select cid from SC where sid="01") as biao02
+        )
+        as biao_ideal  -- 通过笛卡尔积构造出来的 “理想表”
+        
+        left join
+
+        -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
+        (select sid as SID, cid as CID from SC where sid<>"01")
+        as biao_real
+        
+        on
+            biao_ideal.sid = biao_real.sid and
+            biao_ideal.cid = biao_real.cid
+
+    where
+        -- 真实表中的SID 为空者，就是与01不同课的同学
+        biao_real.SID is null
+)
+and Student.sid <> "01";  -- 排除掉01同学本身
