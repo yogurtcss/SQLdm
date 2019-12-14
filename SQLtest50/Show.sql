@@ -7,15 +7,15 @@ use db50;
 
 
 
-select * from Student;
+-- select * from Student;
 
 
 
--- select * from Course;
+select * from Course;
 
 
 
-/* select * from Teacher; */
+select * from Teacher;
 
 
 

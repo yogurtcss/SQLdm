@@ -258,7 +258,8 @@ where
  */
 
 
-/* 2019-12-14 12:20:17
+/* 2019-12-14 12:20:17 
+2019-12-14 20:35:30
 9. 查询和 "01" 号同学——学习的课程 完全相同的其他同学的信息
 */
 
@@ -314,33 +315,76 @@ where sid<>"01" */
 --     (select distinct(sid) from SC where sid<>"01") as biao01,
 --     (select cid from SC where sid="01") as biao02;
 
+-- select *
+-- from Student
+-- where Student.sid not in(
+--     -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
+--     -- 左表中 biao_ideal.sid 不出现空字段
+--     select biao_ideal.sid 
+--     from
+--         (select *
+--         from
+--             -- 最后的结果是要从Student表中选出最终结果，所以biao01还是要从 Student表中选取，然后搞笛卡尔积！
+--             (select sid from Student where sid<>"01") as biao01,
+--             (select cid from SC where sid="01") as biao02
+--         )
+--         as biao_ideal  -- 通过笛卡尔积构造出来的 “理想表”
+        
+--         left join
+
+--         -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
+--         (select sid as SID, cid as CID from SC where sid<>"01")
+--         as biao_real
+        
+--         on
+--             biao_ideal.sid = biao_real.sid and
+--             biao_ideal.cid = biao_real.cid
+
+--     where
+--         -- 真实表中的SID 为空者，就是与01不同课的同学
+--         biao_real.SID is null
+-- )
+-- and Student.sid <> "01";  -- 排除掉01同学本身
+
+
+
+/* 2019-12-14 20:36:33
+ 10. 查询没学过 "张三" 老师讲授的任一门课程的学生姓名
+*/
+
+-- select tid from Teacher where tname="张三";  -- 输出 tid为01
+-- select cid from Course where tid="01"; -- 输出 cid为02
+
+-- 子查询: 张三老师教授的课程号为 02
+/* select cid
+from Course
+where tid = (select tid from Teacher where tname="张三"); */
+
+/* 2019-12-14 23:46:04
+ 血的教训：在做多重嵌套子查询时，每个子查询要加小括号！！
+*/
+
+-- 选了02课的同学萌，没选02课的同学，就 not in
+/* select sid
+from SC
+where 
+  cid= ( select cid from Course where tid= (select tid from Teacher where tname="张三") ); */
+
+-- 如果在做多重嵌套子查询时，有个子查询 忘了加小括号，就会疯狂报错！！如下：
+/* select sid
+from SC
+where 
+  cid=  select cid from Course where tid= (select tid from Teacher where tname="张三") ; */
+
 select *
 from Student
-where Student.sid not in(
-    -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
-    -- 左表中 biao_ideal.sid 不出现空字段
-    select biao_ideal.sid 
-    from
-        (select *
-        from
-            -- 最后的结果是要从Student表中选出最终结果，所以biao01还是要从 Student表中选取，然后搞笛卡尔积！
-            (select sid from Student where sid<>"01") as biao01,
-            (select cid from SC where sid="01") as biao02
-        )
-        as biao_ideal  -- 通过笛卡尔积构造出来的 “理想表”
-        
-        left join
-
-        -- 右表中 biao_real.sid 和 biao_real.cid 可能出现空字段，选取时要起别名
-        (select sid as SID, cid as CID from SC where sid<>"01")
-        as biao_real
-        
-        on
-            biao_ideal.sid = biao_real.sid and
-            biao_ideal.cid = biao_real.cid
-
-    where
-        -- 真实表中的SID 为空者，就是与01不同课的同学
-        biao_real.SID is null
-)
-and Student.sid <> "01";  -- 排除掉01同学本身
+where sid not in
+                ( select sid 
+                  from SC 
+                  where cid= ( select cid 
+                               from Course 
+                               where tid= ( select tid 
+                                             from Teacher 
+                                             where tname="张三" )  
+                            ) 
+                )
