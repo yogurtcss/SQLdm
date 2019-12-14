@@ -227,7 +227,37 @@ from Course;  -- 取出所有的cid：01、02、03 */
 --     biao01.rst<>3 and   -- 选课数量biao01.rst不等于3
 --     biao01.sid=biao02.sid
 
+/* 2019-12-14 09:39:43
+8.查询 至少 有一门课与学号为 "01" 的同学所学相同的同学的信息 
+*/
+-- 查看01同学学了啥课
+-- select sid,cid
+-- from SC
+-- where sid="01";
+
+-- 选出 至少 有一门课与学号为 "01" 的同学 【的学号】
+-- select distinct(biao01.sid)
+-- from
+--     (select sid,cid from SC where sid<>"01") as biao01  -- 选出不是"01"的同学
+-- where
+--     biao01.cid="01" or
+--     biao01.cid="02" or
+--     biao01.cid="03"
+
+select *
+from
+    (select distinct(biao01.sid) 
+    from (select sid,cid from SC where sid<>"01") as biao01
+    where biao01.cid="01" or biao01.cid="02" or biao01.cid="03")   as biao02, -- 表的中间结果
+    -- biao02 选出 至少 有一门课与学号为 "01" 的同学 【的学号】
+
+    -- biao03 选出所有同学的学号
+    (select * from Student) as biao03
+where
+    biao02.sid=biao03.sid  -- 然后 biao02与biao03通过学号相等来连接
 
 
 
-
+/* 2019-12-14 09:40:00
+9. 查询和 "01" 号同学——学习的课程 完全相同的其他同学的信息
+*/
