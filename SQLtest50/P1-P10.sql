@@ -201,3 +201,33 @@ where
 --     biao02.cid=biao03.cid and
 --     biao04.sid=biao03.sid
 
+/* 2019-12-13 16:52:19
+7. 查询没有学全所有课程的同学的信息 */
+/* select cid
+from Course;  -- 取出所有的cid：01、02、03 */
+
+-- 按sid分组 选取出 “统计课程数量count(sid)” ！！关键来了！
+-- select SC.sid, count(sid) as rst
+-- from SC
+-- group by SC.sid
+
+/* 2019-12-14 09:37:42
+ 注意到：学全所有课程的同学，其 count(cid)=3
+ 没有学全，则 count(cid) 不等于3
+ 注意，在数据库中，不等号 的写法！！
+ ▲ mysql中用 <> 与 != 都是可以的，
+ 但 SQLserver 中不识别 !=, 所以建议用 <>
+*/
+
+-- select *
+-- from
+--     (select SC.sid, count(cid) as rst from SC group by SC.sid ) as biao01,
+--     (select * from Student) as biao02
+-- where
+--     biao01.rst<>3 and   -- 选课数量biao01.rst不等于3
+--     biao01.sid=biao02.sid
+
+
+
+
+
