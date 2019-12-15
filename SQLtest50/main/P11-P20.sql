@@ -30,7 +30,8 @@ where sid in(
     from
            ( select SC.sid,  count(score) as rst 
              from SC 
-             where score<60 group by sid
+             where score<60 
+             group by sid
            ) 
            as biao01
 );
