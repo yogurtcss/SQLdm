@@ -11,11 +11,11 @@ use db50;
 
 
 
-select * from Course;
+/* select * from Course; */
 
 
 
-select * from Teacher;
+/* select * from Teacher; */
 
 
 
