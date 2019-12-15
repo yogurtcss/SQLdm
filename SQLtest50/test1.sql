@@ -1,12 +1,17 @@
-use db50;
+use db1;  -- ???request????????user?
 
-/* select cid
-from Course
-where tid = (select tid from Teacher where tname="张三"); */
 
-select sid
-from SC
-where
-    cid = (select cid
-            from Course
-            where tid = (select tid from Teacher where tname="张三") ) ;
+/* drop table stu2; */
+
+
+-- ???request????????user?
+/* create table user(
+    id int primary key auto_increment,  -- ?? id? ??
+    username varchar(32) unique not null,
+    password varchar(32) not null
+) */
+
+-- ?user??????????
+/* insert into user( id,username,password ) values( 1, "superbaby", "123" ); */
+
+select * from user;
