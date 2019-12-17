@@ -76,3 +76,28 @@ where sid in( -- sid in ( ...这里面查询的结果只能是包含一列的sid
   order by score desc
 
 ); */
+
+
+
+-- 13. 按平均成绩从高到低显示所有学生的【所有课程的成绩】以及平均成绩
+
+-- 第一个子查询：从高到低显示所有学生的所有课程成绩
+/* select sid, avg(score) as avgRst
+from SC
+group by sid
+order by avgRst desc; -- order by <列名> 可以使用 列的“别名”！！ */
+
+-- 题目的意思：先选出所有学生的所有成绩，然后把这【所有成绩】 按【各人平均成绩高低】 降序排序！！
+/* select *
+from
+  
+  SC,
+  
+  (select sid, avg(score) as avgRst 
+   from SC 
+   group by sid 
+   order by avgRst desc) 
+   as biao01
+
+where SC.sid=biao01.sid
+order by biao01.avgRst desc;  -- 在外部还要按 平均成绩来 降序排序 */
