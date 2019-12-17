@@ -32,7 +32,7 @@ group by sid; */
 -- 多次反复打开VS code，可使得 ctrl + / 的多行注释样式 在 -- 和 /* 之间变换！！
 -- 最好是：当  ctrl + / 的多行注释为 /* 时，再进入真正的打码！ 多行的 -- 真的太难受了！
 
-select Student.*, avg(score) as avgRst  -- 平均成绩
+/* select Student.*, avg(score) as avgRst  -- 平均成绩
 from SC,  Student   -- 在SC、Student表中选
 where SC.sid in(
 
@@ -49,7 +49,30 @@ where SC.sid in(
 
 ) and SC.sid = Student.sid  -- SC、Student表通过sid列来连接
 group by sid;
-
+ */
 
 
 -- 12. 检索 "01" 课程分数小于 60，按分数降序排列的学生信息
+
+-- 第一个子查询：从SC中 查询 01课程 小于60分、按分数降序排序 的sid、cid和score列
+-- “降序”的语句忘记怎么写了： order by <列名> [ asc升序 |  desc降序 ]
+/* select *
+from SC
+where cid="01" and score<60
+order by score desc; -- 降序desc，升序asc */
+
+/* select *
+from Student
+where sid in( -- sid in ( ...这里面查询的结果只能是包含一列的sid！！ )
+
+  -- 注意，这里查询出来的 * 结果不是一列，而是多列！！
+  -- 这样会报错:Operand should contain 1 column(s)
+  -- 因为 in后面只能接  “一列”的查询结果
+  -- select * from SC where cid="01" and score<60
+  -- order by score desc
+
+  -- 这是正确的，查询的结果只有 sid这“一列”
+  select SC.sid from SC where cid="01" and score<60
+  order by score desc
+
+); */
