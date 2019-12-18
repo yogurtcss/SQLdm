@@ -101,3 +101,53 @@ from
 
 where SC.sid=biao01.sid
 order by biao01.avgRst desc;  -- 在外部还要按 平均成绩来 降序排序 */
+
+
+/* 14. 查询各科成绩最高分、最低分和平均分：
+ 以如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率，优秀率
+ 及格为 >=60，中等为：70-80，优良为：80-90，优秀为：>=90
+
+ 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列
+*/
+
+-- 以各cid分组，查询各cid下的最高分、最低分和平均分
+/* select cid, max(score) as maxRst, min(score) as minRst, avg(score) as avgRst
+from SC
+group by cid; */
+
+
+/* 查询范围 用 between ..a.. and ..b.. ，表示的范围是 闭区间 [a,b]
+ 
+ 或者 >= 及 <= 语句  
+*/
+/* select cid, count(score) as jiGe -- 及格
+from SC
+where score>=60
+group by cid */
+
+/* select cid, count(score) as zhongDeng -- 中等
+from SC
+where score>=70 and score<=80
+group by cid; */
+
+
+/* select *
+from
+  ( select cid, max(score) as maxRst, min(score) as minRst, avg(score) as avgRst from SC group by cid ) as biao01, -- 最高分、最低分、平均分
+  ( select cid, count(score) as jiGe from SC where score>=60 group by cid ) as biao02,  -- 大于等于60分
+  ( select cid, count(score) as zhongDENG from SC where score>=70 and score<=80 group by cid ) as biao03, -- 70-80分
+  ( select cid as CID, count(score) as youLiang from SC where score>=80 and score<=90 group by cid ) as biao04  -- 80-90分
+  left join
+  ( select cid as CID, count(score) as youXiu from SC where score>90 group by cid ) as biao05 -- 90分以上
+  on biao04.CID=biao05.CID
+where
+  biao01.cid = biao02.cid and 
+  biao01.cid = biao03.cid and
+  biao01.cid = biao04.cid;
+ */
+
+-- 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列
+/* select cid, count(cid) as num
+from SC
+group by cid
+order by num desc; */
