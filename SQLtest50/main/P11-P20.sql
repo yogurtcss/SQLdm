@@ -151,3 +151,16 @@ where
 from SC
 group by cid
 order by num desc; */
+
+-- 参考答案
+/* select sc.CId ,max(sc.score)as 最高分,min(sc.score)as 最低分,AVG(sc.score)as 平均分,count(*)as 选修人数,sum(case when sc.score>=60 then 1 else 0 end )/count(*)as 及格率,sum(case when sc.score>=70 and sc.score<80 then 1 else 0 end )/count(*)as 中等率,sum(case when sc.score>=80 and sc.score<90 and sc.score<80 then 1 else 0 end )/count(*)as 优良率,sum(case when sc.score>=90 then 1 else 0 end )/count(*)as 优秀率 
+from sc
+GROUP BY sc.CId
+ORDER BY count(*)DESC,sc.CId asc; */
+
+
+
+-- 15. 按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺
+/* select sc.SId,sc.CId ,case when @pre_parent_code=sc.CId then @curRank:=@curRank+1 when @pre_parent_code:=sc.CId then  @curRank:=1  end as rank,sc.score
+from (select @curRank:=0,@pre_parent_code:='') as t ,sc
+ORDER by sc.CId,sc.score desc */
