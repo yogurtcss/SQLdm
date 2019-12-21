@@ -130,8 +130,9 @@ from SC
 where score>=70 and score<=80
 group by cid; */
 
-
-/* select *
+/* 
+-- 自己写的第14题是什么臭🐟烂虾？
+select *
 from
   ( select cid, max(score) as maxRst, min(score) as minRst, avg(score) as avgRst from SC group by cid ) as biao01, -- 最高分、最低分、平均分
   ( select cid, count(score) as jiGe from SC where score>=60 group by cid ) as biao02,  -- 大于等于60分
@@ -146,17 +147,29 @@ where
   biao01.cid = biao04.cid;
  */
 
--- 要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列
-/* select cid, count(cid) as num
-from SC
-group by cid
-order by num desc; */
-
 -- 参考答案
-/* select sc.CId ,max(sc.score)as 最高分,min(sc.score)as 最低分,AVG(sc.score)as 平均分,count(*)as 选修人数,sum(case when sc.score>=60 then 1 else 0 end )/count(*)as 及格率,sum(case when sc.score>=70 and sc.score<80 then 1 else 0 end )/count(*)as 中等率,sum(case when sc.score>=80 and sc.score<90 and sc.score<80 then 1 else 0 end )/count(*)as 优良率,sum(case when sc.score>=90 then 1 else 0 end )/count(*)as 优秀率 
+/* select 
+  sc.CId ,
+  max(sc.score)as 最高分,
+  min(sc.score)as 最低分,
+  AVG(sc.score)as 平均分,
+  count(*)as 选修人数,
+  sum(case when sc.score>=60 then 1 else 0 end )/count(*)as 及格率,
+  sum(case when sc.score>=70 and sc.score<80 then 1 else 0 end )/count(*)as 中等率,
+  sum(case when sc.score>=80 and sc.score<90 then 1 else 0 end )/count(*)as 优良率,
+  sum(case when sc.score>=90 then 1 else 0 end )/count(*)as 优秀率 
 from sc
 GROUP BY sc.CId
-ORDER BY count(*)DESC,sc.CId asc; */
+ORDER BY count(*)DESC, sc.CId ASC; */
+
+-- 我自己重写的！
+
+
+
+
+
+
+
 
 
 
