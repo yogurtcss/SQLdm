@@ -344,8 +344,8 @@ where Student.sid not in(
          -- 真实表中的SID 为空者，就是与01不同课的同学
          biao_real.SID is null
  )
- and Student.sid <> "01";  -- 排除掉01同学本身
- */
+ and Student.sid <> "01";  -- 排除掉01同学本身 */
+
 
 
 /* 2019-12-14 20:36:33

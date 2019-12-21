@@ -160,17 +160,14 @@ ORDER BY count(*)DESC,sc.CId asc; */
 
 
 
--- 15. 按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺(即：可以出现 并列排名)
-/* select sc.SId,sc.CId ,case when @pre_parent_code=sc.CId then @curRank:=@curRank+1 when @pre_parent_code:=sc.CId then  @curRank:=1  end as rank,sc.score
-from (select @curRank:=0,@pre_parent_code:='') as t ,sc
-ORDER by sc.CId,sc.score desc */
+-- 15. 按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺
 
 /* 计算: 比我高分的有几人?
  
  从biao02选出的,都是比biao01高分的人
  统计: biao02中比biao01高分的 有几人?
 */
-/* select biao01.*, count(biao02.score)+1 as rank
+/* select biao01.cid as SID, biao01.sid, biao01.score, count(biao02.score)+1 as rank
 from
    (SC as biao01)
    left join
@@ -178,6 +175,5 @@ from
    on
       biao01.cid=biao02.cid and
       biao01.score<biao02.score  -- 从biao02选出的,都是比biao01高分的人
-group by biao01.cid, biao01.sid
+group by biao01.cid, biao01.sid, biao01.score
 order by biao01.cid, rank asc; */
-
