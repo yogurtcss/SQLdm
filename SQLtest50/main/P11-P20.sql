@@ -162,14 +162,45 @@ from sc
 GROUP BY sc.CId
 ORDER BY count(*)DESC, sc.CId ASC; */
 
+
+
 -- 我自己重写的！
+/* select
+  cid as 课程号,
+  count(*) as 该科选修人数,
+  max(score) as 该科最高分,
+  min(score) as 该科最低分,
+  avg(score) as 该科平均分,
+
+  -- 开始计算 XX率了
+  sum( case when score>=60 then 1 else 0 end )/count(score) as 该科及格率嗷,
+  sum( case when score>=70 and score<80 then 1 else 0 end )/count(score) as 该科中等率,
+  sum( case when score>=80 and score<90 then 1 else 0 end )/count(score) as 该科优良率,
+  sum( case when score>=90 then 1 else 0 end )/count(score) as 该科优秀率
+
+from SC
+group by cid  -- 按cid的值 进行分组查询！！相同cid的，被归入同一组中；对每一组都执行 【同样的】查询语句
+order by 该科选修人数 desc, 课程号 asc; -- 查询结果按人数降序排列，若人数相同，按课程号升序排列 */
 
 
+/* 相同cid的，被归入同一组中；
 
 
+ “Group By” 从字面意义上理解就是根据 “By” 指定的规则对数据进行分组，
+ 所谓的分组就是将一个 “数据集” 划分成若干个 “小区域”，
+ 然后，【每次】针对若干个 “小区域” 进行【同样的】数据处理(进行同样的 查询操作)。
+ 
+ 在执行SQL语句时，对每一组都进行select查询的【相同的】操作！
+ (如 对每一组都 count、sum 等等等)
 
+ 执行流程：
+ 第一次固定cid="01"，查询得出结果； 
+ 第二次固定cid="02"，查询得出结果；
+ 第三次固定cid="03"，查询得出结果
 
+ 我佛了，这就是我苦苦寻找的  按cid 遍历！！
 
+*/
 
 
 
