@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 /* 2020-02-01 13:52:57
  序列sequence，翻译为 顺序、序列
  实现自动增长功能
@@ -39,7 +37,6 @@
 -- insert into person(pid,pname) values( s_person.nextval, '黑妞' );
 -- commit;
 
-=======
 /* 2020-02-01 13:52:57
  序列sequence，翻译为 顺序、序列
  实现自动增长功能
@@ -78,8 +75,7 @@
 -- insert into person(pid,pname) values( s_person.nextval, '黑妞' );
 -- commit;
 
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
-=======
+
 /* 2020-02-01 13:52:57
  序列sequence，翻译为 顺序、序列
  实现自动增长功能
@@ -118,8 +114,6 @@
 -- insert into person(pid,pname) values( s_person.nextval, '黑妞' );
 -- commit;
 
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
-=======
 /* 2020-02-01 13:52:57
  序列sequence，翻译为 顺序、序列
  实现自动增长功能
@@ -158,5 +152,5 @@
 -- insert into person(pid,pname) values( s_person.nextval, '黑妞' );
 -- commit;
 
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
+
 -- select * from person;

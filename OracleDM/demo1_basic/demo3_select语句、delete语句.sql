@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 -- 2020-02-01 12:48:54
 
 -- select * from person;
@@ -58,8 +56,7 @@
 /* 三个“删除” */
 -- delete from person;  -- 不带 where字段 的delte：不删除表结构，删除表中全部记录
 -- drop table person;  -- 扔掉整个表：删除表的所有结构
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
-=======
+
 -- 2020-02-01 12:48:54
 
 -- select * from person;
@@ -88,8 +85,7 @@
 /* 三个“删除” */
 -- delete from person;  -- 不带 where字段 的delte：不删除表结构，删除表中全部记录
 -- drop table person;  -- 扔掉整个表：删除表的所有结构
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
-=======
+
 -- 2020-02-01 12:48:54
 
 -- select * from person;
@@ -118,5 +114,5 @@
 /* 三个“删除” */
 -- delete from person;  -- 不带 where字段 的delte：不删除表结构，删除表中全部记录
 -- drop table person;  -- 扔掉整个表：删除表的所有结构
->>>>>>> 3fb8429d0286df72def7d992663f6a2bb16e53d9
+
 -- truncate table person;  -- 不删除表结构，只删除表数据
