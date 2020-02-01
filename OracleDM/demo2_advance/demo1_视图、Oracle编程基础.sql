@@ -1,5 +1,3 @@
-
-
 -- 2020-02-01 15:20:45
 
 -- select * from scott.emp;
