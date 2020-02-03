@@ -23,4 +23,8 @@ use ssm; */
 
 select * from account;
 
+
 /* insert into account(name,money) values( "haha",2000 ); */
+
+
+/* delete from account where name='python'; */
